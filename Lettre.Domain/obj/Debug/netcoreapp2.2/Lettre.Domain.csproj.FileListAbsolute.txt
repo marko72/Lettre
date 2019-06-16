@@ -1,0 +1,8 @@
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.Domain\bin\Debug\netcoreapp2.2\Lettre.Domain.deps.json
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.Domain\bin\Debug\netcoreapp2.2\Lettre.Domain.dll
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.Domain\bin\Debug\netcoreapp2.2\Lettre.Domain.pdb
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.Domain\obj\Debug\netcoreapp2.2\Lettre.Domain.csproj.CoreCompileInputs.cache
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.Domain\obj\Debug\netcoreapp2.2\Lettre.Domain.AssemblyInfoInputs.cache
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.Domain\obj\Debug\netcoreapp2.2\Lettre.Domain.AssemblyInfo.cs
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.Domain\obj\Debug\netcoreapp2.2\Lettre.Domain.dll
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.Domain\obj\Debug\netcoreapp2.2\Lettre.Domain.pdb

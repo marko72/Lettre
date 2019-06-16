@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lettre.Application\Lettre.Application.csproj" />
+    <ProjectReference Include="..\Lettre.EfDataAccess\Lettre.EfDataAccess.csproj" />
+  </ItemGroup>
+
+</Project>

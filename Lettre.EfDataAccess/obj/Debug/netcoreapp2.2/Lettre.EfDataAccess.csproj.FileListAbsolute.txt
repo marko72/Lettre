@@ -1,0 +1,14 @@
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\bin\Debug\netcoreapp2.2\Lettre.Domain.dll
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\obj\Debug\netcoreapp2.2\Lettre.EfDataAccess.csprojAssemblyReference.cache
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\obj\Debug\netcoreapp2.2\Lettre.EfDataAccess.csproj.CoreCompileInputs.cache
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\obj\Debug\netcoreapp2.2\Lettre.EfDataAccess.AssemblyInfoInputs.cache
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\obj\Debug\netcoreapp2.2\Lettre.EfDataAccess.AssemblyInfo.cs
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\bin\Debug\netcoreapp2.2\Lettre.EfDataAccess.deps.json
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\bin\Debug\netcoreapp2.2\Lettre.EfDataAccess.runtimeconfig.json
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\bin\Debug\netcoreapp2.2\Lettre.EfDataAccess.runtimeconfig.dev.json
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\bin\Debug\netcoreapp2.2\Lettre.EfDataAccess.dll
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\bin\Debug\netcoreapp2.2\Lettre.EfDataAccess.pdb
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\bin\Debug\netcoreapp2.2\Lettre.Domain.pdb
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\obj\Debug\netcoreapp2.2\Lettre.EfDataAccess.csproj.CopyComplete
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\obj\Debug\netcoreapp2.2\Lettre.EfDataAccess.dll
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfDataAccess\obj\Debug\netcoreapp2.2\Lettre.EfDataAccess.pdb

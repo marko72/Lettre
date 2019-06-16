@@ -1,0 +1,16 @@
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\bin\Debug\netcoreapp2.2\Lettre.EfCommands.deps.json
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\bin\Debug\netcoreapp2.2\Lettre.EfCommands.dll
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\bin\Debug\netcoreapp2.2\Lettre.EfCommands.pdb
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\bin\Debug\netcoreapp2.2\Lettre.Application.dll
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\bin\Debug\netcoreapp2.2\Lettre.Domain.dll
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\bin\Debug\netcoreapp2.2\Lettre.EfDataAccess.dll
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\bin\Debug\netcoreapp2.2\Lettre.Application.pdb
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\bin\Debug\netcoreapp2.2\Lettre.EfDataAccess.pdb
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\bin\Debug\netcoreapp2.2\Lettre.Domain.pdb
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\obj\Debug\netcoreapp2.2\Lettre.EfCommands.csprojAssemblyReference.cache
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\obj\Debug\netcoreapp2.2\Lettre.EfCommands.csproj.CoreCompileInputs.cache
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\obj\Debug\netcoreapp2.2\Lettre.EfCommands.AssemblyInfoInputs.cache
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\obj\Debug\netcoreapp2.2\Lettre.EfCommands.AssemblyInfo.cs
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\obj\Debug\netcoreapp2.2\Lettre.EfCommands.csproj.CopyComplete
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\obj\Debug\netcoreapp2.2\Lettre.EfCommands.dll
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.EfCommands\obj\Debug\netcoreapp2.2\Lettre.EfCommands.pdb
