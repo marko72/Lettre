@@ -37,21 +37,29 @@ namespace Lettre.Api.Controllers
 
         // GET: api/Posts
         [HttpGet]
-        public IActionResult Get([FromQuery]PostSearch dto)
+        public ActionResult<IEnumerable<GetPostsDto>> Get([FromQuery]PostSearch dto)
         {
             try
             {
                 var result = _getPosts.Execute(dto);
+                if(result == null)
+                {
+                    return NoContent();
+                }
                 return Ok(result);
             }catch(EntityNotFoundException e)
             {
                 return NotFound(e.Message);
             }
+            catch (Exception)
+            {
+                return StatusCode(500, "Serverska greška prilikom dohvatanja vesti");
+            }
         }
 
         // GET: api/Posts/5
         [HttpGet("{id}", Name = "GetPost")]
-        public IActionResult Get(int id)
+        public ActionResult<GetPostDto> Get(int id)
         {
             try
             {
@@ -82,7 +90,7 @@ namespace Lettre.Api.Controllers
 
         // POST: api/Posts
         [HttpPost]
-        public IActionResult Post([FromForm] ApiPostDto apiDto)
+        public ActionResult Post([FromForm] ApiPostDto apiDto)
         {
             if(apiDto.Picture == null)
             {
@@ -135,12 +143,12 @@ namespace Lettre.Api.Controllers
 
         // PUT: api/Posts/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] EditPostDto dto)
+        public ActionResult Put(int id, [FromBody] EditPostDto dto)
         {
             try
             {
                 _editPost.Execute(dto);
-                return StatusCode(204, "Uspesno izmenjena vest");
+                return StatusCode(200, "Uspesno izmenjena vest");
             }
             catch (EntityAlreadyExistException e)
             {
@@ -158,12 +166,12 @@ namespace Lettre.Api.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {
                 _deletePost.Execute(id);
-                return StatusCode(204, "Uspešno obrisana vest");
+                return StatusCode(200, "Uspešno obrisana vest");
             }
             catch (EntityNotFoundException e)
             {

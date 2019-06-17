@@ -32,7 +32,7 @@ namespace Lettre.EfCommands.UserCommand
             {
                 if(user.Email != request.Email)
                 {
-                    if (Context.Users.Any(u => u.Name == request.Name))
+                    if (Context.Users.Any(u => u.Email == request.Email))
                     {
                         throw new EntityAlreadyExistException("Email koji zelite dodeliti korisniku");
                     }

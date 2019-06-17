@@ -23,11 +23,6 @@ namespace Lettre.EfCommands.CategoryCommands
             {
                 query = Context.Categories.Where(c => c.Name.ToLower().Contains(request.Name.ToLower()));
             }
-            if (request.IsActive != null)
-            {
-                query = Context.Categories.Where(c => c.IsDeleted == request.IsActive);
-            }
-
             return query.Select(c => new GetCategoryDto
             {
                 Id = c.Id,

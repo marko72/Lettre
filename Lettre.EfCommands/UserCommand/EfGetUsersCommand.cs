@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Lettre.Application.Commands.User;
 using Lettre.Application.DTO.User;
 using Lettre.Application.Exceptions;
@@ -20,11 +19,11 @@ namespace Lettre.EfCommands.UserCommand
         public IEnumerable<GetUserDto> Execute(UserSearch request)
         {
             var users = Context.Users.AsQueryable();
-            if(request.Name != null)
+            if (request.Name != null)
             {
                 users = users.Where(u => u.Name == request.Name && u.IsDeleted == false);
             }
-            if(request.Email != null)
+            if (request.Email != null)
             {
                 users = users.Where(u => u.Email == request.Email && u.IsDeleted == false);
             }
@@ -40,15 +39,23 @@ namespace Lettre.EfCommands.UserCommand
             {
                 throw new EntityNotFoundException("Korisnik sa tim email-om");
             }
-            return users.Include(r => r.Role).Select(u => new GetUserDto
+
+            var totalCount = users.Where(u => u.IsDeleted == false).Count();
+
+            users = users.Skip((request.PageNumber - 1) * request.PerPage)
+                .Take(request.PerPage);
+            int pageCount = (int)Math.Ceiling((double)totalCount / request.PerPage);
+
+            var usr = users.Include(r => r.Role).Where(u => u.IsDeleted == false).Select(u => new GetUserDto
             {
                 Name = u.Name,
                 Surname = u.Surname,
-                Email = u.Surname,
+                Email = u.Email,
                 Id = u.Id,
                 RoleName = u.Role.Name
             });
 
+            return usr;
         }
     }
 }

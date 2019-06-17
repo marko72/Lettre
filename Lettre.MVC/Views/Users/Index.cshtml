@@ -55,7 +55,7 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    <form asp-action="Delete" method="post">
+                    <form method="post" asp-action="Delete">
                         <input type="hidden" name="Id" value="@item.Id" />
                         <input type="submit" name="btnSub" value="Obriši" />
                     </form>

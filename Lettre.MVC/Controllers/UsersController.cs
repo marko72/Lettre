@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Lettre.Application.Commands.Role;
 using Lettre.Application.Commands.User;
 using Lettre.Application.DTO.Role;
 using Lettre.Application.DTO.User;
 using Lettre.Application.Exceptions;
+using Lettre.Application.Interfaces;
 using Lettre.Application.Searches;
+using Lettre.Application.Responsed;
 using Lettre.EfDataAccess;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Lettre.MVC.Controllers
 {
@@ -22,17 +19,21 @@ namespace Lettre.MVC.Controllers
         private readonly IGetUserCommand _getUser;
         private readonly IUpdateUserCommand _updateUser;
         private readonly IDeleteUserCommand _deleteUser;
+        private readonly IEmailSender sender;
         private readonly LettreDbContext context;
-        
-        public UsersController(ICreateUserCommand createUser, IGetUsersCommand getUsers, IGetUserCommand getUser, IUpdateUserCommand updateUser, IDeleteUserCommand deleteUser, LettreDbContext context)
+
+        public UsersController(ICreateUserCommand createUser, IGetUsersCommand getUsers, IGetUserCommand getUser, IUpdateUserCommand updateUser, IDeleteUserCommand deleteUser, IEmailSender sender, LettreDbContext context)
         {
             _createUser = createUser;
             _getUsers = getUsers;
             _getUser = getUser;
             _updateUser = updateUser;
             _deleteUser = deleteUser;
+            this.sender = sender;
             this.context = context;
         }
+
+
 
         // GET: Users
         public ActionResult Index(UserSearch search)
@@ -99,6 +100,10 @@ namespace Lettre.MVC.Controllers
             {
 
                 _createUser.Execute(dto);
+                sender.Subject = "Uspešno registrovanje!";
+                sender.ToEmail = dto.Email;
+                sender.Body = "Uspešno ste se registrovali na vaš sajt! Hvala vam što ste izabrali baš naše online novine!";
+                sender.Send();
                 return RedirectToAction(nameof(Index));
             }
             catch(EntityAlreadyExistException e)
@@ -136,8 +141,7 @@ namespace Lettre.MVC.Controllers
             }
             catch (EntityNotFoundException e)
             {
-                TempData["greska"] = e.Message;
-                return View();
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception)
             {
@@ -201,12 +205,12 @@ namespace Lettre.MVC.Controllers
             catch (EntityNotFoundException e)
             {
                 TempData["greska"] = e.Message;
-                return View();
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception)
             {
                 TempData["greska"] = "Serverska greska prilikom brisanja korisnika";
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
     }

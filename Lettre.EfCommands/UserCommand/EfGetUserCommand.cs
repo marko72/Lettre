@@ -18,7 +18,7 @@ namespace Lettre.EfCommands.UserCommand
         public GetUserDto Execute(int id)
         {
             var obj = Context.Users.Find(id);
-            if (obj == null)
+            if (obj == null || obj.IsDeleted == true)
             {
                 throw new EntityNotFoundException("Korisnik sa tim id-jem");
             }

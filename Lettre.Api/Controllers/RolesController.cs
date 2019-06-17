@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Lettre.Application.Commands.Role;
 using Lettre.Application.DTO.Role;
 using Lettre.Application.Exceptions;
@@ -29,19 +31,36 @@ namespace Lettre.Api.Controllers
         //Potrebno je dodati Unique da ne bi uloga mogla isto da se zove
         // GET: api/<controller>
         [HttpGet]
-        public IActionResult Get([FromQuery]RoleSearch search)
+        public ActionResult<IEnumerable<GetRoleDto>> Get([FromQuery]RoleSearch search)
         {
-            return Ok(_getRoles.Execute(search));
+            
+            try
+            {
+                var roles = _getRoles.Execute(search);
+                if(roles == null)
+                {
+                    return NoContent();
+                }
+                return Ok(roles);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Serverska greska pri dohvatanju uloge");
+            }
         }
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<GetRoleDto> Get(int id)
         {
             try
             {
-                
-                return Ok(_getRole.Execute(id));
+                var role = _getRole.Execute(id);
+                if(role == null)
+                {
+                    return NoContent();
+                }
+                return Ok(role);
             }
             catch(EntityNotFoundException e)
             {
@@ -55,13 +74,14 @@ namespace Lettre.Api.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public IActionResult Post([FromBody]CreateRoleDto dto)
+        public ActionResult Post([FromBody]CreateRoleDto dto)
         {
             try
             {
                 _createRole.Execute(dto);
                 return StatusCode(201, "Uspesno kreirana uloga");
-            }catch(EntityAlreadyExistException e)
+            }
+            catch (EntityAlreadyExistException e)
             {
                 return Conflict(e.Message);
             }
@@ -73,12 +93,12 @@ namespace Lettre.Api.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] GetRoleDto dto)
+        public ActionResult Put(int id, [FromBody] GetRoleDto dto)
         {
             try
             {
                 _updateRole.Execute(dto);
-                return StatusCode(204, "Uloga uspesnon izmenjena");
+                return StatusCode(200, "Uloga uspesnon izmenjena");
             }
             catch (EntityAlreadyExistException e)
             {
@@ -96,19 +116,19 @@ namespace Lettre.Api.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {
                 _deleteRole.Execute(id);
-                return StatusCode(204, "Uspesno obrisana uloga");
+                return StatusCode(200, "Uspesno obrisana uloga");
             }catch(EntityNotFoundException e)
             {
                 return NotFound(e.Message);
             }
             catch (Exception e)
             {
-                return StatusCode(500, e.Message);
+                return StatusCode(500, "Serverska greska pri brisanju uloge");
             }
         }
     }

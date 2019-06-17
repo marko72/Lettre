@@ -33,33 +33,56 @@ namespace Lettre.Api.Controllers
 
         // GET: api/Category
         [HttpGet]
-        public IActionResult Get([FromQuery] CategorySearch search)
+        public ActionResult<IEnumerable<GetCategoryDto>> Get([FromQuery] CategorySearch search)
         {
-            return Ok(_getCategories.Execute(search));
+            try
+            {
+                var categories = _getCategories.Execute(search);
+                if(categories == null)
+                {
+                    return NoContent();
+                }
+                return Ok(categories);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Serverska greška prilikom dohvatanja kategorije");
+            }
+            
+
         }
 
         // GET: api/Category/5
         [HttpGet("{id}", Name = "Get")]
-        public IActionResult Get(int id)
+        public ActionResult<GetCategoryDto> Get(int id)
         {
             try
             {
-                return Ok(_getCategory.Execute(id));
+                var category = _getCategory.Execute(id);
+                if(category == null)
+                {
+                    return NoContent();
+                }
+                return Ok(category);
+
             }catch(EntityNotFoundException e)
             {
-                return NotFound(e);
+                return NotFound(e.Message);
             }
-            
+            catch (Exception)
+            {
+                return StatusCode(500, "Serverska greška prilikom dohvatanja kategorije");
+            }
+
         }
 
         // POST: api/Category
         [HttpPost]
-        public IActionResult Post([FromBody] CreateCategoryDto dto)
+        public ActionResult Post([FromBody] CreateCategoryDto dto)
         {
             try {
                 _createCategory.Execute(dto);
-                return Ok();
-
+                return StatusCode(201, "Uspešno kreirana kategorija");
             }
             catch (EntityAlreadyExistException e)
             {
@@ -74,12 +97,12 @@ namespace Lettre.Api.Controllers
         // PUT: api/Category/5
         [HttpPut("{id}")]
         [Produces("application/json")]
-        public IActionResult Put(int id, [FromBody] GetCategoryDto dto)
+        public ActionResult Put(int id, [FromBody] GetCategoryDto dto)
         {
             try
             {
                 _updateCategory.Execute(dto);
-                return StatusCode(204, "Uspesno izmenjena kategorija");
+                return StatusCode(200, "Uspesno izmenjena kategorija");
             }
             catch (EntityAlreadyExistException e)
             {
@@ -97,12 +120,12 @@ namespace Lettre.Api.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {
                 _deleteCategory.Execute(id);
-                return StatusCode(204);
+                return StatusCode(200,"Uspešno obrisana kategorija");
             }
             catch (InvalidValueForwardedException e)
             {

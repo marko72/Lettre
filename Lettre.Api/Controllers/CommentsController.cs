@@ -43,34 +43,31 @@ namespace Lettre.Api.Controllers
 
         // POST: api/Comments
         [HttpPost]
-        public IActionResult Post([FromBody] CreateCommentDto dto)
+        public ActionResult Post([FromBody] CreateCommentDto dto)
         {
             try
             {
                 _createComment.Execute(dto);
                 return StatusCode(201, "Uspesno komentarisana vest");
-
             }
             catch (EntityNotFoundException e)
             {
-
                 return NotFound(e.Message);
             }
             catch (Exception e)
             {
-
-                return StatusCode(500, e.Message);
+                return StatusCode(500, "Serverska greška prilikom komentarisanja");
             }
         }
 
         // PUT: api/Comments/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] EditCommentDto dto)
+        public ActionResult Put(int id, [FromBody] EditCommentDto dto)
         {
             try
             {
                 _updateComment.Execute(dto);
-                return StatusCode(204, "Uspešno izmenjen komentar");
+                return StatusCode(200, "Uspešno izmenjen komentar");
             }
             catch (EntityNotFoundException e)
             {
@@ -92,12 +89,12 @@ namespace Lettre.Api.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {
                 _deleteComment.Execute(id);
-                return StatusCode(204, "Uspešno izmenjen komentar");
+                return StatusCode(200, "Uspešno izmenjen komentar");
             }
             catch (EntityNotFoundException e)
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,12 +34,18 @@ namespace Lettre.Api.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public IActionResult Get([FromQuery]UserSearch search)
+        public ActionResult<IEnumerable<GetUserDto>> Get([FromQuery]UserSearch search)
         {
             try
             {
-                return Ok(_getUsers.Execute(search));
-            }catch(EntityNotFoundException e)
+                var users = _getUsers.Execute(search);
+                if(users == null)
+                {
+                    return NoContent();
+                }
+                return Ok(users);
+            }
+            catch (EntityNotFoundException e)
             {
                 return NotFound(e.Message);
             }
@@ -50,11 +57,16 @@ namespace Lettre.Api.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}", Name ="GetUser")]
-        public IActionResult Get(int id)
+        public ActionResult<GetUserDto> Get(int id)
         {
             try
             {
-                return Ok(_getUser.Execute(id));
+                var user = _getUser.Execute(id);
+                if (user == null)
+                {
+                    return NoContent();
+                }
+                return Ok(user);
             }
             catch(EntityNotFoundException e)
             {
@@ -62,18 +74,18 @@ namespace Lettre.Api.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, e.Message);
+                return StatusCode(500, "Serverska greška prilikom dohvatanja korisnika");
             }
         }
 
         // POST: api/Users
         [HttpPost]
-        public IActionResult Post([FromBody] CreateUserDto dto)
+        public ActionResult Post([FromBody] CreateUserDto dto)
         {
             try
             {
                 _createUser.Execute(dto);
-                return Ok();
+                return StatusCode(201,"Uspešno kreiran korisnik");
             }
             catch (EntityAlreadyExistException e)
             {
@@ -85,18 +97,18 @@ namespace Lettre.Api.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, e.Message);
+                return StatusCode(500, "Serverska greška prilikom unosa korisnika");
             }
         }
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] UpdateUserDto dto)
+        public ActionResult Put(int id, [FromBody] UpdateUserDto dto)
         {
             try
             {
                 _updateUser.Execute(dto);
-                return StatusCode(204, "Uspesno izmenjen korisnik");
+                return StatusCode(200, "Uspesno izmenjen korisnik");
             }
             catch (EntityNotFoundException e)
             {
@@ -114,12 +126,12 @@ namespace Lettre.Api.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {
                 _deleteUser.Execute(id);
-                return StatusCode(204);
+                return StatusCode(200,"Uspešno obrisan korisnik");
             }
             catch (EntityNotFoundException e)
             {

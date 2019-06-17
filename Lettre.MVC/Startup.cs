@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Lettre.Application.Commands.User;
+using Lettre.Application.Interfaces;
 using Lettre.EfCommands.UserCommand;
 using Lettre.EfDataAccess;
+using Lettre.MVC.Email;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -43,6 +45,13 @@ namespace Lettre.MVC
             services.AddTransient<IUpdateUserCommand, EfUpdateUserCommand>();
             services.AddTransient<IDeleteUserCommand, EfDeleteUserCommand>();
 
+            //Email 
+
+            var section = Configuration.GetSection("Email");
+
+            var sender = new SmtpEmailSender(section["host"], Int32.Parse(section["port"]), section["from"], section["password"]);
+
+            services.AddSingleton<IEmailSender>(sender);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

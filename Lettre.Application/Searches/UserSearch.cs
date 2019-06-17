@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Lettre.Application.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Lettre.Application.Searches
 {
-    public class UserSearch
+    public class UserSearch : Pagination
     {
         [MaxLength(20, ErrorMessage = "Too many charachters for name, 30 is max!")]
         [MinLength(3, ErrorMessage = "Too less charachters for name, 3 is min!")]
