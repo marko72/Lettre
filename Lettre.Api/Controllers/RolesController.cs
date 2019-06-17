@@ -106,9 +106,9 @@ namespace Lettre.Api.Controllers
             {
                 return NotFound(e.Message);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Serverska greska pri brisanju kategorije");
+                return StatusCode(500, e.Message);
             }
         }
     }

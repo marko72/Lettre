@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Lettre.Application.Commands.Role;
 using Lettre.Application.Commands.User;
 using Lettre.Application.DTO.Role;
 using Lettre.Application.DTO.User;
@@ -15,39 +16,72 @@ using Microsoft.EntityFrameworkCore;
 namespace Lettre.MVC.Controllers
 {
     public class UsersController : Controller
-    {
-        private readonly LettreDbContext Context;
+    {        
         private readonly ICreateUserCommand _createUser;
         private readonly IGetUsersCommand _getUsers;
-
-        public UsersController(LettreDbContext context, ICreateUserCommand createUser, IGetUsersCommand getUsers)
+        private readonly IGetUserCommand _getUser;
+        private readonly IUpdateUserCommand _updateUser;
+        private readonly IDeleteUserCommand _deleteUser;
+        private readonly LettreDbContext context;
+        
+        public UsersController(ICreateUserCommand createUser, IGetUsersCommand getUsers, IGetUserCommand getUser, IUpdateUserCommand updateUser, IDeleteUserCommand deleteUser, LettreDbContext context)
         {
-            Context = context;
             _createUser = createUser;
             _getUsers = getUsers;
+            _getUser = getUser;
+            _updateUser = updateUser;
+            _deleteUser = deleteUser;
+            this.context = context;
         }
 
         // GET: Users
         public ActionResult Index(UserSearch search)
         {
-            var korisnici = _getUsers.Execute(search);
-            return View(korisnici);
+            try
+            {
+                var korisnici = _getUsers.Execute(search);
+                return View(korisnici);
+            }
+            catch (EntityNotFoundException e)
+            {
+                TempData["greska"] = e.Message;
+                return View();
+            }
+            catch (Exception)
+            {
+                TempData["greska"] = "Serverska greska prilikom dohvatanja korisnika";
+                return View();
+            }
         }
 
         // GET: Users/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            try
+            {
+                var user = _getUser.Execute(id);
+                return View(user);
+            }
+            catch (EntityNotFoundException e)
+            {
+                TempData["greska"] = e.Message;
+                return View();
+            }
+            catch (Exception)
+            {
+                TempData["greska"] = "Serverska greška prilikom dohvatanja korisnika";
+                return View();
+            }
         }
 
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.Roles = Context.Roles.Select(r => new GetRoleDto
+            ViewBag.Roles = (context.Roles.Select(r => new GetRoleDto
             {
                 Id = r.Id,
                 Name = r.Name
-            });
+            }));
             return View();
         }
 
@@ -65,7 +99,6 @@ namespace Lettre.MVC.Controllers
             {
 
                 _createUser.Execute(dto);
-
                 return RedirectToAction(nameof(Index));
             }
             catch(EntityAlreadyExistException e)
@@ -80,51 +113,99 @@ namespace Lettre.MVC.Controllers
             {
                 TempData["greska"] = "Serverska greska prilikom unosa";
             }
+            ViewBag.Roles = (context.Roles.Select(r => new GetRoleDto
+            {
+                Id = r.Id,
+                Name = r.Name
+            }));
             return View();
         }
 
         // GET: Users/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            try
+            {
+                var user = _getUser.Execute(id);
+                ViewBag.Roles = (context.Roles.Select(r => new GetRoleDto
+                {
+                    Id = r.Id,
+                    Name = r.Name
+                }));
+                return View(user);
+            }
+            catch (EntityNotFoundException e)
+            {
+                TempData["greska"] = e.Message;
+                return View();
+            }
+            catch (Exception)
+            {
+                TempData["greska"] = "Serverska greška prilikom dohvatanja korisnika";
+                return View();
+            }
         }
 
         // POST: Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, UpdateUserDto dto)
         {
             try
             {
-                // TODO: Add update logic here
-
+                _updateUser.Execute(dto);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (EntityNotFoundException e)
             {
+                ViewBag.Roles = (context.Roles.Select(r => new GetRoleDto
+                {
+                    Id = r.Id,
+                    Name = r.Name
+                }));
+                TempData["greska"] = e.Message;
                 return View();
             }
-        }
-
-        // GET: Users/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
+            catch (EntityAlreadyExistException e)
+            {
+                ViewBag.Roles = (context.Roles.Select(r => new GetRoleDto
+                {
+                    Id = r.Id,
+                    Name = r.Name
+                }));
+                TempData["greska"] = e.Message;
+                return View();
+            }
+            catch (Exception)
+            {
+                ViewBag.Roles = (context.Roles.Select(r => new GetRoleDto
+                {
+                    Id = r.Id,
+                    Name = r.Name
+                }));
+                TempData["greska"] = "Serverska greška prilikom izmene korisnika";
+                return View();
+            }
         }
 
         // POST: Users/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                _deleteUser.Execute(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (EntityNotFoundException e)
             {
+                TempData["greska"] = e.Message;
+                return View();
+            }
+            catch (Exception)
+            {
+                TempData["greska"] = "Serverska greska prilikom brisanja korisnika";
                 return View();
             }
         }

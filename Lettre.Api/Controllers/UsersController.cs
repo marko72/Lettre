@@ -74,7 +74,16 @@ namespace Lettre.Api.Controllers
             {
                 _createUser.Execute(dto);
                 return Ok();
-            }catch(Exception e)
+            }
+            catch (EntityAlreadyExistException e)
+            {
+                return Conflict(e.Message);
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
             {
                 return StatusCode(500, e.Message);
             }
@@ -88,7 +97,8 @@ namespace Lettre.Api.Controllers
             {
                 _updateUser.Execute(dto);
                 return StatusCode(204, "Uspesno izmenjen korisnik");
-            }catch(EntityNotFoundException e)
+            }
+            catch (EntityNotFoundException e)
             {
                 return NotFound(e.Message);
             }
@@ -98,7 +108,7 @@ namespace Lettre.Api.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, e.Message);
+                return StatusCode(500, "Serverska greška prilikom izmene korisnika");
             }
         }
 

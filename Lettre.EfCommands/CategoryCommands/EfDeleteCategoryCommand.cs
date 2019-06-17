@@ -17,6 +17,10 @@ namespace Lettre.EfCommands.CategoryCommands
 
         public void Execute(int id)
         {
+            if (id == 0 || id < 0)
+            {
+                throw new InvalidValueForwardedException("Prosledili ste nevažeću vrednost za brisanje kategorije");
+            }
             var cat = Context.Categories
                 .Include(c=> c.Posts)
                 .ThenInclude(p => p.Comments)
@@ -26,8 +30,20 @@ namespace Lettre.EfCommands.CategoryCommands
                 throw new EntityNotFoundException("Kategorija koju zelite da obrisete");
             }
             cat.IsDeleted = true;
-            cat.Posts.Select(post => post.IsDeleted = true);
-            cat.Posts.Select(post => post.Comments.Select(com => com.IsDeleted = true));
+            var posts = cat.Posts;
+            foreach(var p in posts)
+            {
+                if (p.IsDeleted == true)
+                    continue;
+                p.IsDeleted = true;
+                var comms = p.Comments;
+                foreach(var c in comms)
+                {
+                    if (c.IsDeleted == true)
+                        continue;
+                    c.IsDeleted = true;
+                }
+            }
             Context.SaveChanges();
         }
     }

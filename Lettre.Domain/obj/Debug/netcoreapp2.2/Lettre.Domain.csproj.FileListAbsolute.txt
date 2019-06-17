@@ -6,3 +6,4 @@ C:\Users\mradi\source\repos\Lettre.Api\Lettre.Domain\obj\Debug\netcoreapp2.2\Let
 C:\Users\mradi\source\repos\Lettre.Api\Lettre.Domain\obj\Debug\netcoreapp2.2\Lettre.Domain.AssemblyInfo.cs
 C:\Users\mradi\source\repos\Lettre.Api\Lettre.Domain\obj\Debug\netcoreapp2.2\Lettre.Domain.dll
 C:\Users\mradi\source\repos\Lettre.Api\Lettre.Domain\obj\Debug\netcoreapp2.2\Lettre.Domain.pdb
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.Domain\obj\Debug\netcoreapp2.2\Lettre.Domain.csprojAssemblyReference.cache

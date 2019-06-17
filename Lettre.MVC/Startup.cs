@@ -39,6 +39,10 @@ namespace Lettre.MVC
             services.AddDbContext<LettreDbContext>();
             services.AddTransient<ICreateUserCommand, EfCreateUserCommand>();
             services.AddTransient<IGetUsersCommand, EfGetUsersCommand>();
+            services.AddTransient<IGetUserCommand, EfGetUserCommand>();
+            services.AddTransient<IUpdateUserCommand, EfUpdateUserCommand>();
+            services.AddTransient<IDeleteUserCommand, EfDeleteUserCommand>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -15,11 +15,17 @@ namespace Lettre.Api.Controllers
     public class CommentsController : ControllerBase
     {
         private readonly ICreateCommentCommand _createComment;
+        private readonly IEditCommentCommand _updateComment;
+        private readonly IDeleteCommentCommand _deleteComment;
 
-        public CommentsController(ICreateCommentCommand createComment)
+        public CommentsController(ICreateCommentCommand createComment, IEditCommentCommand updateComment, IDeleteCommentCommand deleteComment)
         {
             _createComment = createComment;
+            _updateComment = updateComment;
+            _deleteComment = deleteComment;
         }
+
+
 
         // GET: api/Comments
         [HttpGet]
@@ -59,14 +65,52 @@ namespace Lettre.Api.Controllers
 
         // PUT: api/Comments/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] EditCommentDto dto)
         {
+            try
+            {
+                _updateComment.Execute(dto);
+                return StatusCode(204, "Uspešno izmenjen komentar");
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (InvalidValueForwardedException e)
+            {
+                return UnprocessableEntity(e.Message);
+            }
+            catch (EntityAlreadyExistException e)
+            {
+                return Conflict(e.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Serverska greška prilikom izmene komentara");
+            }
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                _deleteComment.Execute(id);
+                return StatusCode(204, "Uspešno izmenjen komentar");
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (InvalidValueForwardedException e)
+            {
+                return UnprocessableEntity(e.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Serverska greška prilikom brisanja komentara");
+            }
         }
     }
 }

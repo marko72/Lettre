@@ -62,10 +62,13 @@ namespace Lettre.Api
             services.AddTransient<IGetPostsCommand, EfGetPostsCommand>();
             services.AddTransient<IGetPostCommand, EfGetPostCommand>();
             services.AddTransient<IEditPostCommand, EfEditPostCommand>();
+            services.AddTransient<IDeletePostCommand, EfDeletePostCommand>();
 
             //Comment
 
             services.AddTransient<ICreateCommentCommand, EfCreateCommentCommand>();
+            services.AddTransient<IEditCommentCommand, EfUpdateCommentCommand>();
+            services.AddTransient<IDeleteCommentCommand, EfDeleteCommentCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

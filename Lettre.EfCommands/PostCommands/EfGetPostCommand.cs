@@ -36,6 +36,7 @@ namespace Lettre.EfCommands.PostCommands
 
             return new GetPostDto
             {
+                Id = post.Id,
                 Title = post.Title,
                 Category = new GetCategoryWithoutPostsDto
                 {
@@ -47,8 +48,9 @@ namespace Lettre.EfCommands.PostCommands
                 {
                     Path = pic.Path
                 }).ToList(),
-                Comments = post.Comments.Select(com => new GetCommentsDto
+                Comments = post.Comments.Where(c => c.IsDeleted == false).Select(com => new GetCommentsDto
                 {
+
                     Content = com.Content,
                     CreatedAt = com.CreatedAt,
                     UserId = com.User.Id,

@@ -3,6 +3,10 @@
 @{
     ViewData["Title"] = "Create";
 }
+@if (TempData["greska"]!="")
+{
+    TempData["greska"] = "Serverska greska prilikom unosa";
+}
 
 <h1>Create</h1>
 

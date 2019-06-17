@@ -31,6 +31,7 @@ namespace Lettre.EfCommands.PostCommands
 
             var posts = postsObj.Select(p => new GetPostsDto
             {
+                Id = p.Id,
                 Title = p.Title,
                 CategoryId = p.CategoryId,
                 CategoryName = p.Category.Name,

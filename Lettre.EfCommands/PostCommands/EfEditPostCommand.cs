@@ -18,6 +18,10 @@ namespace Lettre.EfCommands.PostCommands
 
         public void Execute(EditPostDto request)
         {
+            if (request.Id == 0 || request.Id < 0)
+            {
+                throw new InvalidValueForwardedException("Morate proslediti vest koju želite da izmenite");
+            }
             var post = Context.Posts.Find(request.Id);
             if(post == null || post.IsDeleted == true)
             {
@@ -32,15 +36,20 @@ namespace Lettre.EfCommands.PostCommands
                 {
                     post.Title = request.Title;
                 }
-            
             if (!String.IsNullOrEmpty(request.Content))
                 post.Content = request.Content;
-            if (!Context.Categories.Any(c => c.Id == request.CategoryId))
+            if(request.CategoryId != 0)
             {
-                throw new EntityNotFoundException("kategorija kojoj želite dodeliti vest");
+                if(request.CategoryId < 0)
+                {
+                    throw new InvalidValueForwardedException("Pogrešna vrednost vesti je uneta");
+                }
+                if (!Context.Categories.Any(c => c.Id == request.CategoryId))
+                {
+                    throw new EntityNotFoundException("kategorija kojoj želite dodeliti vest");
+                }
+               post.CategoryId = request.CategoryId;
             }
-            else
-                post.CategoryId = request.CategoryId;
             
             post.ModifiedAt = DateTime.Now;
             Context.SaveChanges();

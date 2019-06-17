@@ -13,7 +13,7 @@ namespace Lettre.Application.Exceptions
 
         public EntityNotFoundException()
         {
-
+            
         }
     }
 }

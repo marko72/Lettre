@@ -5,6 +5,7 @@ using System.Text;
 using Lettre.Application.Commands.User;
 using Lettre.Application.Exceptions;
 using Lettre.EfDataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lettre.EfCommands.UserCommand
 {
@@ -16,14 +17,18 @@ namespace Lettre.EfCommands.UserCommand
 
         public void Execute(int id)
         {
-            var user = Context.Users.Find(id);
+            var user = Context.Users.Include(u => u.Comments).Where(u => u.Id == id).First();
             if(user == null || user.IsDeleted == true)
             {
                 throw new EntityNotFoundException("Korisnik koga zelite da obrisete");
             }
 
             user.IsDeleted = true;
-            user.Comments.Select(com => com.IsDeleted == true);
+            var comms = user.Comments;
+            foreach(var c in comms)
+            {
+                c.IsDeleted = true;
+            }
             Context.SaveChanges();
 
         }

@@ -22,13 +22,15 @@ namespace Lettre.Api.Controllers
         private readonly ICreatePostCommand _createPost;
         private readonly IGetPostCommand _getPost;
         private readonly IEditPostCommand _editPost;
+        private readonly IDeletePostCommand _deletePost;
 
-        public PostsController(IGetPostsCommand getPosts, ICreatePostCommand createPost, IGetPostCommand getPost, IEditPostCommand editPost)
+        public PostsController(IGetPostsCommand getPosts, ICreatePostCommand createPost, IGetPostCommand getPost, IEditPostCommand editPost, IDeletePostCommand deletePost)
         {
             _getPosts = getPosts;
             _createPost = createPost;
             _getPost = getPost;
             _editPost = editPost;
+            _deletePost = deletePost;
         }
 
 
@@ -56,6 +58,16 @@ namespace Lettre.Api.Controllers
                 var post = _getPost.Execute(id);
                 return Ok(post);
             }
+            catch (EntityAlreadyExistException e)
+            {
+
+                return Conflict(e.Message);
+            }
+            catch (InvalidValueForwardedException e)
+            {
+
+                return UnprocessableEntity(e.Message);
+            }
             catch (EntityNotFoundException e)
             {
 
@@ -72,6 +84,10 @@ namespace Lettre.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromForm] ApiPostDto apiDto)
         {
+            if(apiDto.Picture == null)
+            {
+                return UnprocessableEntity("Vest mora imati sliku");
+            }
             try
             {
                 var ext = Path.GetExtension(apiDto.Picture.FileName); 
@@ -142,8 +158,26 @@ namespace Lettre.Api.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                _deletePost.Execute(id);
+                return StatusCode(204, "Uspešno obrisana vest");
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (InvalidValueForwardedException e)
+            {
+                return UnprocessableEntity(e.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Serverska greška prilikom brisanja vesti");
+            }
+
         }
     }
 }

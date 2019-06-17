@@ -104,6 +104,10 @@ namespace Lettre.Api.Controllers
                 _deleteCategory.Execute(id);
                 return StatusCode(204);
             }
+            catch (InvalidValueForwardedException e)
+            {
+                return UnprocessableEntity(e.Message);
+            }
             catch (EntityNotFoundException e)
             {
                 return NotFound(e.Message);
