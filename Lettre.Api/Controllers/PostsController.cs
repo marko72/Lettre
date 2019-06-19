@@ -42,6 +42,10 @@ namespace Lettre.Api.Controllers
             try
             {
                 var result = _getPosts.Execute(dto);
+                if(result == null)
+                {
+                    return NoContent();
+                }
                 return Ok(result);
             }catch(EntityNotFoundException e)
             {
@@ -144,7 +148,7 @@ namespace Lettre.Api.Controllers
             try
             {
                 _editPost.Execute(dto);
-                return StatusCode(204, "Uspesno izmenjena vest");
+                return StatusCode(200, "Uspesno izmenjena vest");
             }
             catch (EntityAlreadyExistException e)
             {
@@ -167,7 +171,7 @@ namespace Lettre.Api.Controllers
             try
             {
                 _deletePost.Execute(id);
-                return StatusCode(204, "Uspešno obrisana vest");
+                return StatusCode(200, "Uspešno obrisana vest");
             }
             catch (EntityNotFoundException e)
             {
