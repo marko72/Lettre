@@ -38,10 +38,6 @@ namespace Lettre.Api.Controllers
             try
             {
                 var categories = _getCategories.Execute(search);
-                if(categories == null)
-                {
-                    return NoContent();
-                }
                 return Ok(categories);
             }
             catch (Exception)
@@ -59,10 +55,6 @@ namespace Lettre.Api.Controllers
             try
             {
                 var category = _getCategory.Execute(id);
-                if(category == null)
-                {
-                    return NoContent();
-                }
                 return Ok(category);
 
             }catch(EntityNotFoundException e)
@@ -93,7 +85,6 @@ namespace Lettre.Api.Controllers
                 return StatusCode(500);
             }
         }
-
         // PUT: api/Category/5
         [HttpPut("{id}")]
         [Produces("application/json")]
@@ -102,7 +93,7 @@ namespace Lettre.Api.Controllers
             try
             {
                 _updateCategory.Execute(dto);
-                return StatusCode(200, "Uspesno izmenjena kategorija");
+                return StatusCode(204, "Uspesno izmenjena kategorija");
             }
             catch (EntityAlreadyExistException e)
             {
@@ -125,7 +116,7 @@ namespace Lettre.Api.Controllers
             try
             {
                 _deleteCategory.Execute(id);
-                return StatusCode(200,"Uspešno obrisana kategorija");
+                return StatusCode(204,"Uspešno obrisana kategorija");
             }
             catch (InvalidValueForwardedException e)
             {

@@ -37,10 +37,6 @@ namespace Lettre.Api.Controllers
             try
             {
                 var roles = _getRoles.Execute(search);
-                if(roles == null)
-                {
-                    return NoContent();
-                }
                 return Ok(roles);
             }
             catch (Exception)
@@ -56,10 +52,6 @@ namespace Lettre.Api.Controllers
             try
             {
                 var role = _getRole.Execute(id);
-                if(role == null)
-                {
-                    return NoContent();
-                }
                 return Ok(role);
             }
             catch(EntityNotFoundException e)
@@ -98,7 +90,7 @@ namespace Lettre.Api.Controllers
             try
             {
                 _updateRole.Execute(dto);
-                return StatusCode(200, "Uloga uspesnon izmenjena");
+                return StatusCode(204, "Uloga uspesnon izmenjena");
             }
             catch (EntityAlreadyExistException e)
             {
@@ -121,7 +113,7 @@ namespace Lettre.Api.Controllers
             try
             {
                 _deleteRole.Execute(id);
-                return StatusCode(200, "Uspesno obrisana uloga");
+                return StatusCode(204, "Uspesno obrisana uloga");
             }catch(EntityNotFoundException e)
             {
                 return NotFound(e.Message);

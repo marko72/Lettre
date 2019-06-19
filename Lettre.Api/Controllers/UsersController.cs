@@ -39,10 +39,6 @@ namespace Lettre.Api.Controllers
             try
             {
                 var users = _getUsers.Execute(search);
-                if(users == null)
-                {
-                    return NoContent();
-                }
                 return Ok(users);
             }
             catch (EntityNotFoundException e)
@@ -62,10 +58,6 @@ namespace Lettre.Api.Controllers
             try
             {
                 var user = _getUser.Execute(id);
-                if (user == null)
-                {
-                    return NoContent();
-                }
                 return Ok(user);
             }
             catch(EntityNotFoundException e)
@@ -95,7 +87,7 @@ namespace Lettre.Api.Controllers
             {
                 return NotFound(e.Message);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return StatusCode(500, "Serverska greška prilikom unosa korisnika");
             }
@@ -108,7 +100,7 @@ namespace Lettre.Api.Controllers
             try
             {
                 _updateUser.Execute(dto);
-                return StatusCode(200, "Uspesno izmenjen korisnik");
+                return StatusCode(204, "Uspesno izmenjen korisnik");
             }
             catch (EntityNotFoundException e)
             {
@@ -131,7 +123,7 @@ namespace Lettre.Api.Controllers
             try
             {
                 _deleteUser.Execute(id);
-                return StatusCode(200,"Uspešno obrisan korisnik");
+                return StatusCode(204,"Uspešno obrisan korisnik");
             }
             catch (EntityNotFoundException e)
             {
