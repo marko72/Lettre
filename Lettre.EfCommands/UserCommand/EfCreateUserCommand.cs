@@ -18,10 +18,13 @@ namespace Lettre.EfCommands.UserCommand
 
         public void Execute(CreateUserDto request)
         {
-            var role = Context.Roles.Find(request.RoleId);
-            if (role == null || role.IsDeleted == true)
+            if(request.RoleId != 0)
             {
-                throw new EntityNotFoundException("Uloga koja je dodeljena korisniku");
+                var role = Context.Roles.Find(request.RoleId);
+                if (role == null || role.IsDeleted == true)
+                {
+                    throw new EntityNotFoundException("Uloga koja je dodeljena korisniku");
+                }
             }
             if (Context.Users.Any(u => u.Email == request.Email))
             {

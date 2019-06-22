@@ -104,6 +104,7 @@ namespace Lettre.MVC.Controllers
                 sender.ToEmail = dto.Email;
                 sender.Body = "Uspešno ste se registrovali na vaš sajt! Hvala vam što ste izabrali baš naše online novine!";
                 sender.Send();
+                TempData["success"] = "Uspešna registracija";
                 return RedirectToAction(nameof(Index));
             }
             catch(EntityAlreadyExistException e)

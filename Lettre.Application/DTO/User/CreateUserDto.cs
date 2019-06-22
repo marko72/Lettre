@@ -22,7 +22,7 @@ namespace Lettre.Application.DTO.User
         [MaxLength(30, ErrorMessage = "Lozinka može imati maksimalno 30 karaktera!")]
         [MinLength(6, ErrorMessage = "Minimalna dužina lozinke je 6 karaktera!")]
         public string Password { get; set; }
-        [Required(ErrorMessage = "Neophodno je izabrati ulogu korisnika")]
+        //[Required(ErrorMessage = "Neophodno je izabrati ulogu korisnika")]
         public int RoleId { get; set; }
     }
 }
