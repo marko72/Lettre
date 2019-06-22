@@ -3,9 +3,9 @@
 @{
     ViewData["Title"] = "Index";
 }
-@if (TempData["greska"] != "")
+@if (TempData["greska"] != null)
 {
-    TempData["greska"] = "Serverska greska prilikom unosa";
+    <p class="text-danger">@TempData["greska"]</p>
 }
 <h1>Index</h1>
 

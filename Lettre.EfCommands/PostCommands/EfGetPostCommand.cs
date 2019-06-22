@@ -33,6 +33,7 @@ namespace Lettre.EfCommands.PostCommands
             {
                 throw new EntityNotFoundException("Vest koju želite da dohvatite");
             }
+            
 
             return new GetPostDto
             {

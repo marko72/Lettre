@@ -5,13 +5,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Lettre.MVC.Models;
+using Lettre.EfDataAccess;
 
 namespace Lettre.MVC.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly LettreDbContext Context;
+
+        public HomeController(LettreDbContext context)
+        {
+            Context = context;
+        }
+
         public IActionResult Index()
         {
+            var categories = Context.Categories;
+            ViewBag.Categories = categories;
             return View();
         }
 

@@ -67,7 +67,7 @@ namespace Lettre.Api.Controllers
             try
             {
                 _updateComment.Execute(dto);
-                return StatusCode(200, "Uspešno izmenjen komentar");
+                return StatusCode(204, "Uspešno izmenjen komentar");
             }
             catch (EntityNotFoundException e)
             {
@@ -94,7 +94,7 @@ namespace Lettre.Api.Controllers
             try
             {
                 _deleteComment.Execute(id);
-                return StatusCode(200, "Uspešno izmenjen komentar");
+                return StatusCode(204, "Uspešno izmenjen komentar");
             }
             catch (EntityNotFoundException e)
             {

@@ -33,7 +33,7 @@ namespace Lettre.EfCommands.UserCommand
                 Surname = request.Surname,
                 Email = request.Email,
                 Password = request.Password,
-                RoleId = request.RoleId
+                RoleId = 2
             });
             Context.SaveChanges();
         }

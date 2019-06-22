@@ -40,3 +40,5 @@ C:\Users\mradi\source\repos\Lettre.Api\Lettre.MVC\obj\Debug\netcoreapp2.2\Razor\
 C:\Users\mradi\source\repos\Lettre.Api\Lettre.MVC\obj\Debug\netcoreapp2.2\Razor\Views\Users\Index.g.cshtml.cs
 C:\Users\mradi\source\repos\Lettre.Api\Lettre.MVC\obj\Debug\netcoreapp2.2\Razor\Views\Users\Details.g.cshtml.cs
 C:\Users\mradi\source\repos\Lettre.Api\Lettre.MVC\obj\Debug\netcoreapp2.2\Razor\Views\Users\Edit.g.cshtml.cs
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.MVC\obj\Debug\netcoreapp2.2\Razor\Views\Posts\Index.g.cshtml.cs
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.MVC\obj\Debug\netcoreapp2.2\Razor\Views\Posts\Details.g.cshtml.cs

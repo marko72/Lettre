@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Lettre.Application.Commands.Post;
 using Lettre.Application.Commands.User;
 using Lettre.Application.Interfaces;
+using Lettre.EfCommands.PostCommands;
 using Lettre.EfCommands.UserCommand;
 using Lettre.EfDataAccess;
 using Lettre.MVC.Email;
@@ -45,6 +47,9 @@ namespace Lettre.MVC
             services.AddTransient<IUpdateUserCommand, EfUpdateUserCommand>();
             services.AddTransient<IDeleteUserCommand, EfDeleteUserCommand>();
 
+            services.AddTransient<IGetPostsCommand, EfGetPostsCommand>();
+            services.AddTransient<IGetPostCommand, EfGetPostCommand>();
+
             //Email 
 
             var section = Configuration.GetSection("Email");
@@ -76,7 +81,7 @@ namespace Lettre.MVC
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Users}/{action=Index}/{id?}");
             });
         }
     }
