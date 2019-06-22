@@ -33,6 +33,16 @@ namespace Lettre.Api.Controllers
 
 
         // GET: api/Users
+        /// <summary>
+        /// Get all users
+        /// </summary>
+        /// <returns>All users</returns>
+        /// <response code="200">Uspesno dohvaceni korisnici.</response>
+        /// <response code="404">Nema ni jednog korisnika</response>
+        /// <response code="500">Serverska greska prilikom dohvatanja korisnika</response>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         [HttpGet]
         public ActionResult<IEnumerable<GetUserDto>> Get([FromQuery]UserSearch search)
         {
@@ -52,6 +62,16 @@ namespace Lettre.Api.Controllers
         }
 
         // GET: api/Users/5
+        /// <summary>
+        /// Get user by id
+        /// </summary>
+        /// <returns>One user</returns>
+        /// <response code="200">Uspesno dohvacen korisnik.</response>
+        /// <response code="404">Trazeni korisnik ne postoji</response>
+        /// <response code="500">Serverska greska prilikom dohvatanja korisnika</response>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         [HttpGet("{id}", Name ="GetUser")]
         public ActionResult<GetUserDto> Get(int id)
         {
@@ -64,13 +84,24 @@ namespace Lettre.Api.Controllers
             {
                 return NotFound(e.Message);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return StatusCode(500, "Serverska greška prilikom dohvatanja korisnika");
             }
         }
 
         // POST: api/Users
+        /// <summary>
+        /// Insert new user
+        /// </summary>
+        /// <returns>Status code</returns>
+        /// <response code="201">Uspesno kreiran korisnik.</response>
+        /// <response code="409">Korisnik sa tim imejlom vec postoji</response>
+        /// <response code="404">Uloga koju zelite da dodelite korisniku je obrisana ili ne postoji</response>
+        /// <response code="500">Serverska greska prilikom unosa korsnika</response>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(409)]
+        [ProducesResponseType(500)]
         [HttpPost]
         public ActionResult Post([FromBody] CreateUserDto dto)
         {
@@ -94,6 +125,19 @@ namespace Lettre.Api.Controllers
         }
 
         // PUT: api/Users/5
+        /// <summary>
+        /// Update user
+        /// </summary>
+        /// <returns>Status code</returns>
+        /// <response code="204">Uspesno izmenjen korisnik.</response>
+        /// <response code="409">Korisnik sa istim imejlom vec postoji</response>
+        /// <response code="404">Korisnik koga zelite da izmenite je obrisan ili ne postoji</response>
+        /// <response code="404">Uloga koju zelite da dodelite korisniku ne postoji</response>
+        /// <response code="500">Serverska greska prilikom izmene kategorije</response>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(409)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] UpdateUserDto dto)
         {
@@ -117,6 +161,16 @@ namespace Lettre.Api.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        /// <returns>Status code</returns>
+        /// <response code="204">Uspesno obrisan korisnik.</response>
+        /// <response code="404">Korisnik koga zelite da obrisete ili je vec obrisan ili ne postoji</response>
+        /// <response code="500">Serverska greska prilikom brisanja kategorija</response>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

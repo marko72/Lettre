@@ -42,6 +42,16 @@ namespace Lettre.Api.Controllers
         }
 
         // POST: api/Comments
+        /// <summary>
+        /// Insert new comment
+        /// </summary>
+        /// <returns>Status code</returns>
+        /// <response code="201">Uspesno komentarisana vest.</response>
+        /// <response code="404">Vest koju zelite da komentarisete je obrisana ili ne postoji</response>
+        /// <response code="500">Serverska greska prilikom unosa kategorija</response>
+        [ProducesResponseType(201)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         [HttpPost]
         public ActionResult Post([FromBody] CreateCommentDto dto)
         {
@@ -61,6 +71,16 @@ namespace Lettre.Api.Controllers
         }
 
         // PUT: api/Comments/5
+        /// <summary>
+        /// Update comment
+        /// </summary>
+        /// <returns>Status code</returns>
+        /// <response code="204">Uspesno izmenjen komentar.</response>
+        /// <response code="404">Komentar koji zelite da izmenite je obrisan ili ne postoji</response>
+        /// <response code="500">Serverska greska prilikom izmene komentara</response>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] EditCommentDto dto)
         {
@@ -88,13 +108,25 @@ namespace Lettre.Api.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
+        /// <summary>
+        /// Delete comment
+        /// </summary>
+        /// <returns>Status code</returns>
+        /// <response code="204">Uspesno obrisan komentar.</response>
+        /// <response code="404">Komentar koji zelite da obrisete ne postoji</response>
+        /// <response code="422">Prosledili ste nevažeću vrednost za brisanje komentara</response>
+        /// <response code="500">Serverska greska prilikom brisanja komentara</response>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(422)]
+        [ProducesResponseType(500)]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
             try
             {
                 _deleteComment.Execute(id);
-                return StatusCode(204, "Uspešno izmenjen komentar");
+                return StatusCode(204, "Uspešno obrisan komentar");
             }
             catch (EntityNotFoundException e)
             {

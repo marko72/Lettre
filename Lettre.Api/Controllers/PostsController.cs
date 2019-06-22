@@ -36,6 +36,14 @@ namespace Lettre.Api.Controllers
 
 
         // GET: api/Posts
+        /// <summary>
+        /// Get all posts
+        /// </summary>
+        /// <returns>All posts</returns>
+        /// <response code="200">Uspesno dohvacene vesti.</response>
+        /// <response code="500">Serverska greska prilikom dohvatanja vesti</response>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
         [HttpGet]
         public ActionResult<IEnumerable<GetPostsDto>> Get([FromQuery]PostSearch dto)
         {
@@ -54,6 +62,16 @@ namespace Lettre.Api.Controllers
         }
 
         // GET: api/Posts/5
+        /// <summary>
+        /// Get post
+        /// </summary>
+        /// <returns>One post</returns>
+        /// <response code="200">Uspesno dohvacena vest.</response>
+        /// <response code="404">Trazena vest ne postoji</response>
+        /// <response code="500">Serverska greska prilikom dohvatanja vesti</response>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         [HttpGet("{id}", Name = "GetPost")]
         public ActionResult<GetPostDto> Get(int id)
         {
@@ -61,16 +79,6 @@ namespace Lettre.Api.Controllers
             {
                 var post = _getPost.Execute(id);
                 return Ok(post);
-            }
-            catch (EntityAlreadyExistException e)
-            {
-
-                return Conflict(e.Message);
-            }
-            catch (InvalidValueForwardedException e)
-            {
-
-                return UnprocessableEntity(e.Message);
             }
             catch (EntityNotFoundException e)
             {
@@ -85,6 +93,19 @@ namespace Lettre.Api.Controllers
         }
 
         // POST: api/Posts
+        /// <summary>
+        /// Insert new post
+        /// </summary>
+        /// <returns>Status code</returns>
+        /// <response code="201">Uspesno kreirana vest.</response>
+        /// <response code="422">Vest mora imati sliku</response>
+        /// <response code="422">Format slike nije dozvoljen</response>
+        /// <response code="409">Vest sa istim nazivom vec postoji</response>
+        /// <response code="404">Kategorija kojoj zelite dodeliti vest je obrisana ili ne postoji</response>
+        /// <response code="500">Serverska greska prilikom unosa posta</response>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(409)]
+        [ProducesResponseType(500)]
         [HttpPost]
         public ActionResult Post([FromForm] ApiPostDto apiDto)
         {
@@ -138,6 +159,18 @@ namespace Lettre.Api.Controllers
         }
 
         // PUT: api/Posts/5
+        /// <summary>
+        /// Update posts
+        /// </summary>
+        /// <returns>Status code</returns>
+        /// <response code="204">Uspesno izmenjena vest.</response>
+        /// <response code="409">Vest sa istim nazivom vec postoji</response>
+        /// <response code="404">Kategorija kojoj zelite dodeliti vest je obrisana ili ne postoji</response>
+        /// <response code="500">Serverska greska prilikom izmene vesti</response>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(409)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] EditPostDto dto)
         {
@@ -156,11 +189,23 @@ namespace Lettre.Api.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, e.Message/*"Serverska greška pri izmeni"*/);
+                return StatusCode(500, "Serverska greška pri izmeni");
             }
         }
 
         // DELETE: api/ApiWithActions/5
+        /// <summary>
+        /// Delete psot
+        /// </summary>
+        /// <returns>Status code</returns>
+        /// <response code="204">Uspesno obrisana vest.</response>
+        /// <response code="404">Vest koju zelite da obrisete je vec obrisana ili ne postoji</response>
+        /// <response code="422">Prosledili ste nevažeću vrednost za brisanje vesti</response>
+        /// <response code="500">Serverska greska prilikom brisanja vesti</response>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(422)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

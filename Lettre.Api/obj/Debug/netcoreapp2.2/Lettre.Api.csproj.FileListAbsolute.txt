@@ -21,3 +21,5 @@ C:\Users\mradi\source\repos\Lettre.Api\Lettre.Api\bin\Debug\netcoreapp2.2\Lettre
 C:\Users\mradi\source\repos\Lettre.Api\Lettre.Api\bin\Debug\netcoreapp2.2\Lettre.EfDataAccess.pdb
 C:\Users\mradi\source\repos\Lettre.Api\Lettre.Api\bin\Debug\netcoreapp2.2\Lettre.Domain.pdb
 C:\Users\mradi\source\repos\Lettre.Api\Lettre.Api\obj\Debug\netcoreapp2.2\Lettre.Api.csproj.CopyComplete
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.Api\bin\Debug\netcoreapp2.2\Lettre.Api.xml
+C:\Users\mradi\source\repos\Lettre.Api\Lettre.Api\obj\Debug\netcoreapp2.2\Lettre.Api.xml

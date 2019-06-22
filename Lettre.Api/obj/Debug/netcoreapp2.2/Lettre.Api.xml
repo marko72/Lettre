@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Lettre.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Lettre.Api.Controllers.CategoryController.Get(Lettre.Application.Searches.CategorySearch)">
+            <summary>
+            Get all categories
+            </summary>
+            <returns>All categories</returns>
+            <response code="200">Uspesno dohvacene kategorije.</response>
+            <response code="500">Serverska greska prilikom dohvatanja kategorija</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.CategoryController.Get(System.Int32)">
+            <summary>
+            Get category by id
+            </summary>
+            <returns>One category</returns>
+            <response code="200">Uspesno dohvacene kategorija.</response>
+            <response code="404">Trazena kategorija ne postoji</response>
+            <response code="500">Serverska greska prilikom dohvatanja kategorije</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.CategoryController.Post(Lettre.Application.DTO.Category.CreateCategoryDto)">
+            <summary>
+            Insert new category
+            </summary>
+            <returns>Status code</returns>
+            <response code="201">Uspesno kreirana kategorija.</response>
+            <response code="409">Kategorija sa istim imenom vec postoji</response>
+            <response code="500">Serverska greska prilikom unosa kategorija</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.CategoryController.Put(System.Int32,Lettre.Application.DTO.Category.GetCategoryDto)">
+            <summary>
+            Update category
+            </summary>
+            <returns>Status code</returns>
+            <response code="204">Uspesno izmenjena kategorija.</response>
+            <response code="409">Kategorija sa istim imenom vec postoji</response>
+            <response code="404">Kategorija koju zelite da izmenite ne postoji</response>
+            <response code="500">Serverska greska prilikom izmene kategorije</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.CategoryController.Delete(System.Int32)">
+            <summary>
+            Delete category
+            </summary>
+            <returns>Status code</returns>
+            <response code="204">Uspesno obrisana kategorija.</response>
+            <response code="404">Kategorija koju zelite da obrisete ne postoji</response>
+            <response code="422">Prosledili ste nevažeću vrednost za brisanje kategorije</response>
+            <response code="500">Serverska greska prilikom brisanja kategorija</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.CommentsController.Post(Lettre.Application.DTO.Comment.CreateCommentDto)">
+            <summary>
+            Insert new comment
+            </summary>
+            <returns>Status code</returns>
+            <response code="201">Uspesno komentarisana vest.</response>
+            <response code="404">Vest koju zelite da komentarisete je obrisana ili ne postoji</response>
+            <response code="500">Serverska greska prilikom unosa kategorija</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.CommentsController.Put(System.Int32,Lettre.Application.DTO.Comment.EditCommentDto)">
+            <summary>
+            Update comment
+            </summary>
+            <returns>Status code</returns>
+            <response code="204">Uspesno izmenjen komentar.</response>
+            <response code="404">Komentar koji zelite da izmenite je obrisan ili ne postoji</response>
+            <response code="500">Serverska greska prilikom izmene komentara</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.CommentsController.Delete(System.Int32)">
+            <summary>
+            Delete comment
+            </summary>
+            <returns>Status code</returns>
+            <response code="204">Uspesno obrisan komentar.</response>
+            <response code="404">Komentar koji zelite da obrisete ne postoji</response>
+            <response code="422">Prosledili ste nevažeću vrednost za brisanje komentara</response>
+            <response code="500">Serverska greska prilikom brisanja komentara</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.PostsController.Get(Lettre.Application.Searches.PostSearch)">
+            <summary>
+            Get all posts
+            </summary>
+            <returns>All posts</returns>
+            <response code="200">Uspesno dohvacene vesti.</response>
+            <response code="500">Serverska greska prilikom dohvatanja vesti</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.PostsController.Get(System.Int32)">
+            <summary>
+            Get post
+            </summary>
+            <returns>One post</returns>
+            <response code="200">Uspesno dohvacena vest.</response>
+            <response code="404">Trazena vest ne postoji</response>
+            <response code="500">Serverska greska prilikom dohvatanja vesti</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.PostsController.Post(Lettre.Api.Models.ApiPostDto)">
+            <summary>
+            Insert new post
+            </summary>
+            <returns>Status code</returns>
+            <response code="201">Uspesno kreirana vest.</response>
+            <response code="422">Vest mora imati sliku</response>
+            <response code="422">Format slike nije dozvoljen</response>
+            <response code="409">Vest sa istim nazivom vec postoji</response>
+            <response code="404">Kategorija kojoj zelite dodeliti vest je obrisana ili ne postoji</response>
+            <response code="500">Serverska greska prilikom unosa posta</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.PostsController.Put(System.Int32,Lettre.Application.DTO.Post.EditPostDto)">
+            <summary>
+            Update posts
+            </summary>
+            <returns>Status code</returns>
+            <response code="204">Uspesno izmenjena vest.</response>
+            <response code="409">Vest sa istim nazivom vec postoji</response>
+            <response code="404">Kategorija kojoj zelite dodeliti vest je obrisana ili ne postoji</response>
+            <response code="500">Serverska greska prilikom izmene vesti</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.PostsController.Delete(System.Int32)">
+            <summary>
+            Delete psot
+            </summary>
+            <returns>Status code</returns>
+            <response code="204">Uspesno obrisana vest.</response>
+            <response code="404">Vest koju zelite da obrisete je vec obrisana ili ne postoji</response>
+            <response code="422">Prosledili ste nevažeću vrednost za brisanje vesti</response>
+            <response code="500">Serverska greska prilikom brisanja vesti</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.RolesController.Get(Lettre.Application.Searches.RoleSearch)">
+            <summary>
+            Get all roles
+            </summary>
+            <returns>All roles</returns>
+            <response code="200">Uspesno dohvacene uloga.</response>
+            <response code="500">Serverska greska prilikom dohvatanja uloga</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.RolesController.Get(System.Int32)">
+            <summary>
+            Get role by id
+            </summary>
+            <returns>One role</returns>
+            <response code="200">Uspesno dohvacena uloga.</response>
+            <response code="404">Trazena uloga ne postoji</response>
+            <response code="500">Serverska greska prilikom dohvatanja uloge</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.RolesController.Post(Lettre.Application.DTO.Role.CreateRoleDto)">
+            <summary>
+            Insert new role
+            </summary>
+            <returns>Status code</returns>
+            <response code="201">Uspesno kreirana uloga.</response>
+            <response code="409">Uloga sa tim nazivom vec postoji</response>
+            <response code="500">Serverska greska prilikom unosa uloge</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.RolesController.Put(System.Int32,Lettre.Application.DTO.Role.GetRoleDto)">
+            <summary>
+            Update role
+            </summary>
+            <returns>Status code</returns>
+            <response code="204">Uspesno izmenjena uloga.</response>
+            <response code="409">Uloga sa istim imenom vec postoji</response>
+            <response code="404">Uloga koju zelite da izmenite ne postoji</response>
+            <response code="500">Serverska greska prilikom izmene uloge</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.RolesController.Delete(System.Int32)">
+            <summary>
+            Delete role
+            </summary>
+            <returns>Status code</returns>
+            <response code="204">Uspesno obrisana uloga.</response>
+            <response code="404">Uloga koju zelite da obrisete ne postoji</response>
+            <response code="500">Serverska greska prilikom brisanja uloge</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.UsersController.Get(Lettre.Application.Searches.UserSearch)">
+            <summary>
+            Get all users
+            </summary>
+            <returns>All users</returns>
+            <response code="200">Uspesno dohvaceni korisnici.</response>
+            <response code="404">Nema ni jednog korisnika</response>
+            <response code="500">Serverska greska prilikom dohvatanja korisnika</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.UsersController.Get(System.Int32)">
+            <summary>
+            Get user by id
+            </summary>
+            <returns>One user</returns>
+            <response code="200">Uspesno dohvacen korisnik.</response>
+            <response code="404">Trazeni korisnik ne postoji</response>
+            <response code="500">Serverska greska prilikom dohvatanja korisnika</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.UsersController.Post(Lettre.Application.DTO.User.CreateUserDto)">
+            <summary>
+            Insert new user
+            </summary>
+            <returns>Status code</returns>
+            <response code="201">Uspesno kreiran korisnik.</response>
+            <response code="409">Korisnik sa tim imejlom vec postoji</response>
+            <response code="404">Uloga koju zelite da dodelite korisniku je obrisana ili ne postoji</response>
+            <response code="500">Serverska greska prilikom unosa korsnika</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.UsersController.Put(System.Int32,Lettre.Application.DTO.User.UpdateUserDto)">
+            <summary>
+            Update user
+            </summary>
+            <returns>Status code</returns>
+            <response code="204">Uspesno izmenjen korisnik.</response>
+            <response code="409">Korisnik sa istim imejlom vec postoji</response>
+            <response code="404">Korisnik koga zelite da izmenite je obrisan ili ne postoji</response>
+            <response code="404">Uloga koju zelite da dodelite korisniku ne postoji</response>
+            <response code="500">Serverska greska prilikom izmene kategorije</response>
+        </member>
+        <member name="M:Lettre.Api.Controllers.UsersController.Delete(System.Int32)">
+            <summary>
+            Delete user
+            </summary>
+            <returns>Status code</returns>
+            <response code="204">Uspesno obrisan korisnik.</response>
+            <response code="404">Korisnik koga zelite da obrisete ili je vec obrisan ili ne postoji</response>
+            <response code="500">Serverska greska prilikom brisanja kategorija</response>
+        </member>
+    </members>
+</doc>
