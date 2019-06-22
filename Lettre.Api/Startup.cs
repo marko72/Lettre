@@ -72,7 +72,7 @@ namespace Lettre.Api
             //Post
 
             services.AddTransient<ICreatePostCommand, EfCreatePostCommand>();
-            services.AddTransient<IGetPostsCommand, EfGetPostsCommand>();
+            services.AddTransient<IGetPaggedPostsCommand, EfGetPaggedPostsCommand>();
             services.AddTransient<IGetPostCommand, EfGetPostCommand>();
             services.AddTransient<IEditPostCommand, EfEditPostCommand>();
             services.AddTransient<IDeletePostCommand, EfDeletePostCommand>();

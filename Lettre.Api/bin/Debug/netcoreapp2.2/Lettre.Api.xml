@@ -78,7 +78,7 @@
             <response code="422">Prosledili ste nevažeću vrednost za brisanje komentara</response>
             <response code="500">Serverska greska prilikom brisanja komentara</response>
         </member>
-        <member name="M:Lettre.Api.Controllers.PostsController.Get(Lettre.Application.Searches.PostSearch)">
+        <member name="M:Lettre.Api.Controllers.PostsController.Get(Lettre.Application.Searches.PostSearchApi)">
             <summary>
             Get all posts
             </summary>

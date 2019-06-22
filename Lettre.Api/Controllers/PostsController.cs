@@ -8,6 +8,7 @@ using Lettre.Application.Commands.Post;
 using Lettre.Application.DTO.Post;
 using Lettre.Application.Exceptions;
 using Lettre.Application.Helpers;
+using Lettre.Application.Responsed;
 using Lettre.Application.Searches;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,15 +19,15 @@ namespace Lettre.Api.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly IGetPostsCommand _getPosts;
+        private readonly IGetPaggedPostsCommand _getPaggPosts;
         private readonly ICreatePostCommand _createPost;
         private readonly IGetPostCommand _getPost;
         private readonly IEditPostCommand _editPost;
         private readonly IDeletePostCommand _deletePost;
 
-        public PostsController(IGetPostsCommand getPosts, ICreatePostCommand createPost, IGetPostCommand getPost, IEditPostCommand editPost, IDeletePostCommand deletePost)
+        public PostsController(IGetPaggedPostsCommand getPaggPosts, ICreatePostCommand createPost, IGetPostCommand getPost, IEditPostCommand editPost, IDeletePostCommand deletePost)
         {
-            _getPosts = getPosts;
+            _getPaggPosts = getPaggPosts;
             _createPost = createPost;
             _getPost = getPost;
             _editPost = editPost;
@@ -45,11 +46,11 @@ namespace Lettre.Api.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
         [HttpGet]
-        public ActionResult<IEnumerable<GetPostsDto>> Get([FromQuery]PostSearch dto)
+        public ActionResult<PagedRespone<GetPostsDto>> Get([FromQuery]PostSearchApi dto)
         {
             try
             {
-                var result = _getPosts.Execute(dto);
+                var result = _getPaggPosts.Execute(dto);
                 return Ok(result);
             }catch(EntityNotFoundException e)
             {
